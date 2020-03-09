@@ -1,0 +1,79 @@
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+a{
+    cursor:pointer;
+}
+body{
+    padding:0;
+    margin:0;
+    font-weight:normal;
+    font-style: normal;
+    font-family:  "microsoft yahei", "SimSun", arial, verdana, sans-serif;
+}
+*{-webkit-tap-highlight-color:rgba(0, 0, 0, 0);}
+
+input{outline: none; border:none; }
+input[type*="radio"] { margin-right:5px; }
+
+button, input, select, textarea {
+    font-size: 100%;
+}
+h1,h2,h3,h4,h5,h6{font-size:100%; font-weight:normal; }
+a,a:hover,a:active, input, :focus { outline:none;text-decoration:none; }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    word-break:break-all;
+}
+.pointer{
+    cursor: pointer;
+}
+.clearfix{
+    clear:both;
+}
+.text-right{
+    text-align:right;
+}
+
+.icons {
+    display: inline-block;
+}
+span, em, i{
+    display:block;
+}
+
+
+.default {
+    background-image: url('../../img/7niu/pvm_default_weather.png');
+}
+.sunny {
+    background-image: url('../image/weather_sunny.png');
+}
+.snow {
+    background-image: url('../image/weather_snow.png');
+}
+.smog {
+    background-image: url('../image/weather_smog.png');
+}
+.sleet {
+    background-image: url('../image/weather_sleet.png');
+}
+.rainy {
+    background-image: url('../image/weather_rainy.png');
+}
+.cloudy {
+    background-image: url('../image/weather_cloudy.png');
+}
+.overcast {
+    background-image: url('../image/weather_overcast.png');
+}
+.sandstorm {
+    background-image: url('../image/weather_sandstorm.png');
+}
+.thunderstorm {
+    background-image: url('../image/weather_thunderstorm.png');
+}

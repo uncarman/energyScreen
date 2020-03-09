@@ -1,0 +1,17 @@
+{
+  "name": "energyScreen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "prod": "node src/index.js prod",
+    "test": "node src/index.js test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mssql": "^6.0.1",
+    "mysql": "^2.17.1"
+  }
+}

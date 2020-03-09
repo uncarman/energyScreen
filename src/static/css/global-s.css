@@ -1,0 +1,127 @@
+@font-face{
+    font-family: 'Alibaba-PuHuiTi-Bold';
+    src : url('./Alibaba-PuHuiTi-Bold.ttf');
+}
+@font-face{
+    font-family: 'digifacewide';
+    src : url('./digifacewide.ttf');
+}
+html { width: 100%; height: 100%; }
+body {
+    width: 2112px;
+    height: 832px;
+    background: #002B6B url(../image/background.png) center fixed no-repeat;
+    color: #3CE7DA;
+    font-size: 100%;
+    overflow: hidden;
+    border: 1px solid red;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 1.6667px;
+    -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 255.2);
+    background: rgba(255, 255, 255, 0.2);
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+span { display: inline; }
+.col-3 { width: 25%; float: left; }
+.col-6 { width: 50%; float: left; }
+.col-12 { width: 100%; float: left; }
+.col-4 { width: 33.33%; float: left; }
+.col-8 { width: 66.66%; float: left; }
+.col-4_5 { width: 35%; float: left; }
+.col-7_5 { width: 65%; float: left; }
+.pull-left { float: left; }
+.pull-right { float: right; }
+
+.table { width: 100%; }
+.table th { font-weight: bold; padding: 0; text-align: left; }
+.table td { font-weight: normal; }
+
+
+.icons { display: inline-block; width: 16.6667px; height: 16.6667px; background-size:100% 100%;  vertical-align: middle; position: relative; top: -1.6667px; }
+.weather_icon { width: 66.6667px; height: 66.6667px; float: left; }
+
+.icon-elec { background-image: url(../image/icon-elec.png); width: 26.6667px; height: 26.6667px; }
+.icon-water { background-image: url(../image/icon-water.png); width: 26.6667px; height: 26.6667px; }
+.icon-persons { background-image: url(../image/icon-persons.png); }
+.icon-person { background-image: url(../image/icon-person.png); }
+.icon-area { background-image: url(../image/icon-area.png); }
+.icon-chart { background-image: url(../image/icon-chart.png); }
+.icon-safe { background-image: url(../image/icon-safe.png); }
+.icon-camera-s { background-image: url(../image/icon-camera-s.png); }
+.icon-warning { background-image: url(../image/icon-warning.png); }
+
+.icon-device { background-image: url(../image/icon-device.png); }
+.icon-xfsb { background-image: url(../image/icon-xfsb.png); }
+.icon-fs { background-image: url(../image/icon-fs.png); }
+
+.bar { width: 100%; height: 6.6667px; display: inline-block; vertical-align: middle; background:rgba(60, 231, 218, 0.1);  }
+.bar-inline { width: 100%; height: 100%; display: block; background:rgba(60, 231, 218, 1);  }
+
+.header { text-align: center; font-size: 140%; height: 11vh; font-weight: bold; }
+.header .left { float:left; background: url(../image/headLeft.png) left no-repeat; background-size:185%; width:22vw; height: 9vh; line-height: 6vh; }
+.header .right { float:right; background: url(../image/headRight.png) right no-repeat; background-size:185%; width:22vw; height: 9vh; line-height: 6vh; font-size: 90%;  }
+.header .center { background: url(../image/headCenter.png) center no-repeat; background-size:33.3333% 100%; font-size: 150%; line-height: 11vh; }
+
+.content { font-size: 100%; }
+.content > div {}
+.content .title { font-weight: bold; }
+.content > .left { float:left; width:24vw; height: 87vh; position: relative; top: -2vh; margin-bottom:-1vh; }
+.content > .right { float:right; width:24vw; height: 87vh; position: relative; top: -2vh; margin-bottom:-1vh; }
+.content > .center { float:left; width:52vw; height: 87vh; }
+
+
+.content > .left .summary { margin-left:0.5vw; margin-bottom:6.6667px;  }
+.content > .left .summary .title { margin-left:0.5vw; font-size: 130%;  }
+.content > .left .summary ul { margin: 6.6667px 20px; }
+.content > .left .summary ul li { line-height: 2; }
+
+.content > .left .block, .content > .left .leftFoot { background: rgba(60, 231, 218, 0.1); border: 0.3px solid #fff;
+ margin:0 0.5vw 6.6667px; padding:6.6667px 0.5vw; }
+.content > .left .block .title {font-size: 110%; font-weight: bold; }
+.content > .left .block ul { margin: 6.6667px 0px; padding: 0px; }
+.content > .left .block ul li { list-style: none; line-height: 1.7; }
+.content > .left .block .bar { width: 55%; }
+
+.content > .left .block .echart { height: 15vh; border: 0.3px solid red; }
+.content > .left .leftFoot { margin-top:-10px; border-top:none; }
+
+.content > .center .title { font-size: 110%; margin-bottom: 2vh; }
+.content > .center .summary { margin: 10vh 0 6vh; text-align: left; }
+.content > .center .summary .title div { font-family: "digifacewide"; font-size:240%; font-weight: normal; }
+
+.content > .center .medias { display: block; }
+.content > .center .media { float: left; margin: 1vh 0; }
+.content > .center .col-6 .media { width:50%; }
+.content > .center .col-3 .media { width:100%; }
+.content > .center .media .leftImg { width: 40%; float: left; }
+.content > .center .media .leftImg img { width: 90%; }
+.content > .center .media .rightBlock { width: 55%; padding-left: 5%; float: right; font-size:80%; line-height: 2; }
+.content > .center .pd10 { padding: 0 2.5%; }
+
+
+.content > .right {}
+.content > .right .content-right-weather { width: 50%; float: left; margin-right: 33.3333px; margin-bottom: 26.6667px; border-right:0.3px solid rgba(60, 231, 218, 1);  }
+.content > .right .content-right-weather .temperature { float: left; margin-left: 26.6667px; }
+.content > .right .content-right-weather .current-temp { font-size: 220%; }
+.content > .right .content-right-weather .current-city { vertical-align: bottom; }
+
+.content > .right .visitor { padding:10px 33.3333px; line-height: 1.8; }
+
+.content > .right .block { background: rgba(60, 231, 218, 0.1); border: 0.3px solid #fff;
+ margin:0 0.5vw 6.6667px; padding:6.6667px 0.5vw; }
+ .content > .right .block .chart { margin-bottom: 6.6667px; }
+.content > .right .block .camera { width: 48%; height: 163.3333px; margin:6.6667px 0 0px 6.6667px; border:none; float: left; }
+
+
+.content > .right .block .table { margin: 6.6667px 0; }

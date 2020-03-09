@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>嘉兴大楼</title>
+    <!-- css -->
+    <link href="./css/style.css" rel="stylesheet" />
+    <link href="./css/global.css" rel="stylesheet" />
+</head>
+
+<body >
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <p ng-bind-html="myText"></p>
+
+</div>
+
+</body>
+
+</html>
+
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/angular.js/1.5.8/angular.js"></script>
+
+    <script src="https://cdn.bootcss.com/angular-sanitize/1.5.9/angular-sanitize.js"></script>
+<script>
+
+/*var app = angular.module("myApp", ['']);*/
+
+var app = angular.module("myApp", ['ngSanitize']);
+
+/*js代码里，注入第三方模块ngSanitize就行了，不用注入$sanitize服务，就可以在HTML里使用ng-bind-html了。*/
+
+app.controller("myCtrl", function($scope) {
+
+    $scope.myText = "My name is: <h1 style='color:red'>John Doe</h1>";
+
+});
+
+</script>

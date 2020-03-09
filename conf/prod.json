@@ -1,0 +1,56 @@
+{
+    "host": "localhost",
+    "port": 8001,
+
+    "mysql": {
+        "hy": {
+            "host": "192.168.151.102",
+            "port": 3306,
+            "database": "ems4",
+            "user": "root",
+            "password": "root123"
+        },
+        "jx": {
+            "host": "192.168.100.100",
+            "port": 3306,
+            "database": "ems4",
+            "user": "pbsage",
+            "password": "123456"
+        },
+        "js": {
+            "host": "192.168.151.84",
+            "port": 3306,
+            "database": "ems4",
+            "user": "root",
+            "password": "root123"
+        },
+        "rt": {
+            "host": "192.168.151.12",
+            "port": 3306,
+            "database": "ems4",
+            "user": "root",
+            "password": "root1234"
+        },
+        "xz": {
+            "host": "192.168.151.53",
+            "port": 3306,
+            "database": "ems4",
+            "user": "root",
+            "password": "root123"
+        },
+        "mz": {
+            "host": "192.168.151.192",
+            "port": 3306,
+            "database": "ems4",
+            "user": "root",
+            "password": "root123"
+        }
+    },
+
+    "mssql": {
+        "host": "rm-uf67xbt5r3r17jddto.mysql.rds.aliyuncs.com",
+        "database": "tmp_test",
+        "username": "llproj",
+        "password": "asjfy3j7Y@62o@hksowi"
+    }
+}
