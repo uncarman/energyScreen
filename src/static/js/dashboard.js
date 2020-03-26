@@ -269,91 +269,51 @@ app.config(function($interpolateProvider) {
     };
     
     var LineOption = {
-        dataZoom: {
-            type: 'inside'
-        },
         grid: {
-            top: 10,
-            left: 5,
-            right: 5,
-            bottom: 5,
-        },
-        tooltip: {
-            trigger: 'axis',
-            position: function (pos, params, dom, rect, size) {
-                var obj = {top: 60};
-                return obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;
-            },
-            formatter:function(params){
-                var view = "";    
-                var colum=Math.ceil(params.length/14);
-                var view = "时间 ："+params[0].axisValueLabel;
-                var value='',raws;
-                for (var i in params) {
-                    if(i%colum){
-                        view +='   ';
-                    }else{
-                        view += '<br/>';
-                    }
-                    view += params[i].marker;
-                    view += params[i].seriesName;
-                    value=": "+params[i].value[1];
-                    view += value;
-
-
-                }
-                return view;
-            }
+            top: 20,
+            left: 40,
+            right: 10,
+            bottom: 25,
         },
         xAxis: {
             type: 'time',
             splitLine: {
-                show: false
+                show: true,
+                lineStyle: {
+                    color: 'rgba(60, 231, 218, 0.15)'
+                }
             },
-            axisLabel: null,
             axisLine: {
                 lineStyle: {
-                    color: "rgba(238,155,0,1)"
+                    color: "rgba(60, 231, 218, 0.85)"
                 }
             },
         },
         yAxis: {
             type: 'value',
             splitLine: {
-                show: false
+                show: true,
+                lineStyle: {
+                    color: 'rgba(60, 231, 218, 0.15)'
+                }
             },
-            axisLabel: null,
             axisLine: {
                 lineStyle: {
-                    color: "rgba(238,155,0,1)"
+                    color: "rgba(60, 231, 218, 0.85)"
                 }
             },
         },
         series: [
             {
-                name:'日功率',
+                name:'度',
                 type:'line',
-                smooth:true,
-                symbol: 'none',
-                sampling: 'average',
-                // itemStyle: {
-                //     color: 'rgba(238,155,0,1)'
-                // },
-                itemStyle: null,
-                areaStyle: {
-                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                        offset: 0,
-                        color: 'rgba(238,155,0,1)'
-                    }, {
-                        offset: 1,
-                        color: 'rgba(203,39,0,1)'
-                    }])
+                itemStyle: {
+                    color: 'rgba(60, 231, 218, 0.75)'
                 },
                 data: [],
             }
         ],
     };
-
     var labelOption = {
         show: true,
         position: 'insideBottom',
@@ -373,15 +333,11 @@ app.config(function($interpolateProvider) {
         }
     };
     var BarOption = {
-        dataZoom: {
-            type: 'inside'
-        },
-        color: ['#2E92FF'],
         grid: {
-            top: 5,
-            left: 15,
-            right: 15,
-            bottom: 10,
+            top: 20,
+            left: 40,
+            right: 10,
+            bottom: 25,
         },
         tooltip: {
             trigger: 'axis',
@@ -393,30 +349,34 @@ app.config(function($interpolateProvider) {
         xAxis: {
             type: 'time',
             splitLine: {
-                show: false
+                show: true,
+                lineStyle: {
+                    color: 'rgba(60, 231, 218, 0.15)'
+                }
             },
-            axisLabel: null,
             axisLine: {
                 lineStyle: {
-                    color: "rgba(60, 231, 218, 1)"
+                    color: "rgba(60, 231, 218, 0.85)"
                 }
             },
         },
         yAxis: {
             type: 'value',
             splitLine: {
-                show: false
+                show: true,
+                lineStyle: {
+                    color: 'rgba(60, 231, 218, 0.15)'
+                }
             },
-            axisLabel: null,
             axisLine: {
                 lineStyle: {
-                    color: "rgba(60, 231, 218, 1)"
+                    color: "rgba(60, 231, 218, 0.85)"
                 }
             },
         },
         series: [
             {
-                name:'日发电',
+                name:'度',
                 type:'bar',
                 barWidth: "40%",
                 smooth:true,
@@ -431,7 +391,7 @@ app.config(function($interpolateProvider) {
                         ]
                     )
                 },
-                label: labelOption,
+                // label: labelOption,
                 data: [],
             },
             {
@@ -454,6 +414,21 @@ app.config(function($interpolateProvider) {
                 data: [],
             }
         ],
+    };
+    var PieOption = {
+        color: settings.maintanceColors,
+        series: [{
+            type: 'pie',
+            radius: '85%',
+            data: [],
+            label:{ //饼图图形上的文本标签
+                normal:{
+                    textStyle : {
+                        fontSize : 16 //文字的字体大小
+                    }
+                }
+            }
+        }]
     };
 
     // 根据浏览器定位当前位置, 并输出天气情况
@@ -554,17 +529,186 @@ app.config(function($interpolateProvider) {
         $scope.getLocalWeather();
         $scope.getLocalAirPm();
 
-        // 获取用户所有电站 + 获取汇总信息
-        $scope.getDatas()
-            .then(function(data){
+        // 嘉兴设备相关
+        $scope.getDevices()
+            .then(function(data) {
                 console.log(data);
-                $scope.fmtData(data);
+                $scope.fmtDevice(data);
             }).catch(function(data){
-                // lay.msg(0)
                 // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
                 alert("暂无数据，调试中...");
             });
+        // 嘉兴大楼相关数据
+        $scope.getEnergyData("jx")
+            .then(function(data) {
+                console.log(data);
+                $scope.fmtEnergyData(data);
+            }).catch(function(data){
+                // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
+                alert("暂无数据，调试中...");
+            });
+
+        // 获取所有数据
+        // $scope.getDatas()
+        //     .then(function(data){
+        //         console.log(data);
+        //         $scope.fmtData(data);
+        //     }).catch(function(data){
+        //         // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
+        //         alert("暂无数据，调试中...");
+        //     });
     }
+    // 嘉兴设备数据
+    $scope.getDevices = function() {
+        var param = {
+            _method: 'get',
+            _url: settings.ajax_func.ajaxDevices,
+        };
+        return global.return_promise($scope, param);
+    };
+    $scope.fmtDevice = function(data) {
+        // 摄像头
+        $scope.data.camera= {
+            online: videos.length,
+            closed: 0,
+            error: 0,
+        };
+        // 照明
+        $scope.data.light = {
+            online: 0,
+            closed: 0,
+            error: 0,
+        };
+        // 空调
+        $scope.data.airConditioning= {
+            online: 0,
+            closed: 0,
+            error: 0,
+        };
+        // 电梯
+        $scope.data.elevator = {
+            online: 0,
+            closed: 0,
+            error: 0,
+        };
+        if(data.result.length > 0) {
+            data.result.map(function(d, ind) {
+                if(d.DEVICETYPE == 1) { // 照明
+                    if(d.COMMUNICATESTAUS == 1) {
+                        $scope.data.light.online += 1;
+                        if(d.SWITCHSTATUS == 1) {
+                            $scope.data.light.opened += 1;
+                        } else {
+                            $scope.data.light.closed += 1;
+                        }
+                    } else {
+                        $scope.data.light.error += 1;
+                    }
+                } else if(d.DEVICETYPE == 2) { // 空调
+                    if(d.COMMUNICATESTAUS == 1) {
+                        $scope.data.airConditioning.online += 1;
+                        if(d.SWITCHSTATUS == 1) {
+                            $scope.data.airConditioning.opened += 1;
+                        } else {
+                            $scope.data.airConditioning.closed += 1;
+                        }
+                    } else {
+                        $scope.data.airConditioning.error += 1;
+                    }
+                }
+            });
+        }
+        $scope.$apply(function(){
+            $scope.data = $scope.data;
+        });
+    }
+
+    // 能耗数据, dn：数据库
+    $scope.getEnergyData = function(dn) {
+        var param = {
+            _method: 'get',
+            _url: settings.ajax_func.ajaxEnergyData,
+            _param: {
+                dn: dn,
+                today: moment().format("YYYY-MM-DD")
+            }
+        };
+        return global.return_promise($scope, param);
+    };
+    $scope.fmtEnergyData = function(data) {
+        var res = data.result;
+        $scope.$apply(function(){
+            $scope.data.energyToday = res.energyToday["tt"];
+            $scope.data.energyMonth = res.energyMonth["tt"];
+            $scope.data.energyLastMonth = res.energyLastMonth["tt"];
+            $scope.data.energyMonthBySubentry = res.energyMonthBySubentry;
+            $scope.data.energyRealTimeList = res.energyRealTimeList;
+            $scope.data.energyMonthList = res.energyMonthList;
+
+            // 饼图 -- 月能耗分项
+            $scope.data.energyMonthBySubentryDataList = [];
+            $scope.data.energyMonthBySubentry.map(function(d) {
+                $scope.data.energyMonthBySubentryDataList.push({
+                    value: d.tt,
+                    name: d.name,
+                });
+            });
+            var opt = copy(PieOption);
+            opt.series[0].data = $scope.data.energyMonthBySubentryDataList;
+            drawEChart($scope.chartMonthBySubentry, opt);
+
+            // 折线图 -- 小时曲线
+            // 先准备基础数据
+            $scope.data.energyRealTimeDataList = [];
+            $scope.data.energyRealTimeList.map(function(d){
+                $scope.data.energyRealTimeDataList.push({
+                    val: d.tt,
+                    key: d.date_time.split(" ")[1],
+                });
+            });
+            var opt = copy(LineOption);
+            opt.xAxis.type = "category";
+            opt.xAxis.data = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
+                                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                                "20", "21", "22", "23"];
+            opt.xAxis.axisLabel = {
+                interval: 1
+            };
+            opt.series[0].data = fmtEChartData({
+                    datas: $scope.data.energyRealTimeDataList
+                });
+            console.log(JSON.stringify(opt));
+            drawEChart($scope.chartRealTime, opt);
+
+            // 折线图 -- 日曲线
+            // 先准备基础数据
+            $scope.data.energyMonthDataList = [];
+            $scope.data.energyMonthList.map(function(d){
+                $scope.data.energyMonthDataList.push({
+                    val: d.tt,
+                    key: d.date_time.split("-")[2],
+                });
+            });
+            var opt = copy(LineOption);
+            var defaultDays = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                                "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                                "31"];
+            var days = moment().daysInMonth();
+            opt.xAxis.data = defaultDays.slice(0, days);
+            opt.xAxis.type = "category";
+            opt.xAxis.axisLabel = {
+                interval: 2
+            };
+            opt.series[0].data = fmtEChartData({
+                    datas: $scope.data.energyMonthDataList
+                });
+            console.log(JSON.stringify(opt));
+            drawEChart($scope.chartMonthData, opt);
+        });
+    }
+
+    // 原获取5个大楼的数据接口
     $scope.getDatas = function () {
         var param = {
             _method: 'post',
@@ -575,7 +719,7 @@ app.config(function($interpolateProvider) {
         };
         return global.return_promise($scope, param);
     }
-    
+    // 原5个大楼的数据解析
     $scope.fmtData = function(data) {
         if(data.result.length > 0) {
 
@@ -770,8 +914,6 @@ app.config(function($interpolateProvider) {
         }
     };
 
-    
-
     // 给图表option添加更多属性
     function addMoreFeature(option) {
         var newFeature = {
@@ -842,12 +984,16 @@ app.config(function($interpolateProvider) {
         echart.resize();
     }
 
+    function isValidDate(date) {
+        return date instanceof Date && !isNaN(date.getTime())
+    }
+
     // 格式化成图表需要的数据
     function fmtEChartData(data){
         var tmpSeriesData = [];
         data.datas.map(function (p) {
             tmpSeriesData.push([
-                new Date(p.key),
+                isValidDate(new Date(p.key)) ? new Date(p.key) : p.key,
                 (p.val == "" ? 0 : parseFloat(p.val).toFixed(2))
             ])
         });
@@ -942,11 +1088,16 @@ app.config(function($interpolateProvider) {
 
         // 设置全局提供map调用
         window.refreshDatas = refreshDatas;
-        window.refreshDatas();
+        setTimeout(function(){
+            window.refreshDatas();
+        }, 0);
 
         //resize();
 
         $scope.dailyEnergy = echarts.init(document.getElementById("dailyEnergy"));
+        $scope.chartMonthBySubentry = echarts.init(document.getElementById("chartMonthBySubentry"));
+        $scope.chartRealTime = echarts.init(document.getElementById("chartRealTime"));
+        $scope.chartMonthData = echarts.init(document.getElementById("chartMonthData"));
 
         // 初始化地图
         //initMap();

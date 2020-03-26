@@ -19,6 +19,17 @@ const db = {
 	        });
 	    });
 	},
+	endConn: function(dbName) {
+		if(dbName != undefined) {
+			pools[dbName].end();
+			delete pools[dbName];
+		} else {
+			for(var d in pools) {
+				pools[d].end();
+				delete pools[d];
+			}
+		}
+	},
 	query: function (conn, sql, param = []) {
 	    return new Promise((resolve, reject) => {
 	        //parameter check

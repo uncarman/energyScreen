@@ -11,11 +11,11 @@
             "password": "root123"
         },
         "jx": {
-            "host": "192.168.100.100",
+            "host": "rm-uf67xbt5r3r17jddto.mysql.rds.aliyuncs.com",
             "port": 3306,
             "database": "ems4",
-            "user": "pbsage",
-            "password": "123456"
+            "user": "llproj",
+            "password": "asjfy3j7Y@62o@hksowi"
         },
         "js": {
             "host": "192.168.151.84",

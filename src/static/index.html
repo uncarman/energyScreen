@@ -48,6 +48,39 @@
             <div class="clearfix"></div>
 
             <div class="block">
+                <div class="chart">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        本月每日用能
+                    </div>
+                    <div class="echart" id="chartMonthBySubentry"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="block">
+                <div class="chart">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        本月每日用能
+                    </div>
+                    <div class="echart" id="chartRealTime"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="block">
+                <div class="chart">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        本月每日用能
+                    </div>
+                    <div class="echart" id="chartMonthData"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="block">
                 <div class="col-6">
                     <div class="title">
                         <span class="icons icon-persons"></span>
@@ -245,16 +278,16 @@
                     </div>
                     <div class="">
                         <div class="media">
-                            <div class="leftImg"><img src="image/icon-smokeDetector.png"></div>
+                            <div class="leftImg"><img src="image/icon-airConditioning.png"></div>
                             <div class="rightBlock">
                                 <div>
-                                    在线设备：<span ng-bind="data.smokeDetector.online"></span>
+                                    在线设备：<span ng-bind="data.airConditioning.online"></span>
                                 </div>
                                 <div>
-                                    正常关闭：<span ng-bind="data.smokeDetector.closed"></span>
+                                    正常关闭：<span ng-bind="data.airConditioning.closed"></span>
                                 </div>
                                 <div>
-                                    故障：<span ng-bind="data.smokeDetector.error"></span>
+                                    故障：<span ng-bind="data.airConditioning.error"></span>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
