@@ -21,54 +21,113 @@
     <div class="clearfix"></div>
     <div class="content">
         <div class="left">
+            <!-- 当日当月标煤 -->
             <div class="summary">
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-elec"></span>
-                        <span>总用电量：<span ng-bind="data.totalElec | number :0"></span>度</span>
+                <div class="col-12">
+                    <div class="col-6">
+                        <div class="">
+                            当日总能耗(标煤)
+                            <div class="sp">
+                                <span ng-bind="data.energyToday*0.404 | number :0"></span>KG
+                            </div>
+                        </div>
                     </div>
-                    <ul>
-                        <li>人均用电量：<span ng-bind="data.totalElecAvgPerson | number :2"></span>度</li>
-                        <li>每平米电量：<span ng-bind="data.totalElecAvgArea | number :2"></span>度</li>
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-water"></span>
-                        <span>总用水量：<span ng-bind="data.totalWater | number :0"></span>吨</span>
+                    <div class="col-6">
+                        <div class="">
+                            当月总能耗(标煤)
+                            <div class="sp">
+                                <span ng-bind="data.energyMonth*0.404 | number :0"></span>KG
+                            </div>
+                        </div>
                     </div>
-                    <ul>
-                        <li>人均用水量：<span ng-bind="data.totalWaterAvgPerson | number :2"></span>吨</li>
-                        <li>每平米水量：<span ng-bind="data.totalWaterAvgArea | number :2"></span>吨</li>
-                    </ul>
                 </div>
                 <div class="clearfix"></div>
             </div>
 
             <div class="clearfix"></div>
 
+            <!-- 大楼实时用电 -->
             <div class="block">
                 <div class="chart">
                     <div class="title">
                         <span class="icons icon-chart"></span>
-                        本月每日用能
-                    </div>
-                    <div class="echart" id="chartMonthBySubentry"></div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="block">
-                <div class="chart">
-                    <div class="title">
-                        <span class="icons icon-chart"></span>
-                        本月每日用能
+                        大楼实时用电（度）
                     </div>
                     <div class="echart" id="chartRealTime"></div>
                 </div>
                 <div class="clearfix"></div>
             </div>
+            <div class="clearfix"></div>
+            <div class="leftFoot">
+                <div class="pull-left">
+                    <span class="icons icon-safe"></span>
+                    当月用电量: <span ng-bind="data.energyMonth | number :0"></span>度
+                </div>
+                <div class="pull-right">
+                    <span class="icons icon-safe"></span>
+                    上月用电量: <span ng-bind="data.energyLastMonth | number :0"></span>度
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
 
+            <!-- 设备间状态 -->
+            <div class="block">
+                <div class="col-12">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        设备间状态
+                    </div>
+                </div>
+
+                <div class="row  text-center dd">
+                    <div class="col-4">
+                        <p class="st">设备温度</p>
+                        <span class="icons icon-temp"></span>
+                        <p class="big"><span ng-bind="data.temp"></span>度</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="st">设备湿度</p>
+                        <span class="icons icon-humidity"></span>
+                        <p class="big"><span ng-bind="data.humidity"></span>%RH</p>
+                    </div>
+                    <div class="col-4">
+                        <span class="icons icon-leak"></span>
+                        <p class="big" ng-class="data.leakClass" ng-bind="data.leakStr">正常--无渗水</p>
+                        <p style="margin-bottom:5px;">设备渗水状态</p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- 大楼设备能耗 -->
+            <div class="block">
+                <div class="chart">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        大楼设备能耗
+                    </div>
+                    <div class="row">
+                        <div class="col-6 tb">
+                            <div class="tbinner">
+                                <b class="col-6">设备类型</b>
+                                <b class="col-6">已用电量</b>
+                                <div class="clearfix" style="padding-top:8px;"></div>
+                                <div ng-repeat="s in data.energyMonthBySubentry">
+                                    <span class="col-6" ng-bind="s.name"></span>
+                                    <span class="col-6"><span ng-bind="s.tt | number :0"></span>度</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="echart" id="chartMonthBySubentry"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- 本月每日用能 -->
             <div class="block">
                 <div class="chart">
                     <div class="title">
@@ -79,90 +138,9 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-
-            <div class="block">
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-persons"></span>
-                        人均用电排名
-                    </div>
-                    <ul>
-                        <li ng-repeat="a in data.elecAvgPerson">
-                            <span ng-bind="a.name"></span>
-                            <span class="bar">
-                                <span class="bar-inline" ng-style='{width: a.percent }'></span>
-                            </span>
-                            <span ng-bind="a.val | number :2"></span>度
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-persons"></span>
-                        人均用水排名
-                    </div>
-                    <ul>
-                        <li ng-repeat="a in data.waterAvgPerson">
-                            <span ng-bind="a.name"></span>
-                            <span class="bar">
-                                <span class="bar-inline" ng-style='{width: a.percent }'></span>
-                            </span>
-                            <span ng-bind="a.val | number :2"></span>吨
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
             <div class="clearfix"></div>
 
-            <div class="block">
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-area"></span>
-                        每平米用电排名
-                    </div>
-                    <ul>
-                        <li ng-repeat="a in data.elecAvgArea">
-                            <span ng-bind="a.name"></span>
-                            <span class="bar">
-                                <span class="bar-inline" ng-style='{width: a.percent }'></span>
-                            </span>
-                            <span ng-bind="a.val | number :2"></span>度
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <div class="title">
-                        <span class="icons icon-area"></span>
-                        每平米用水排名
-                    </div>
-                    <ul>
-                        <li ng-repeat="a in data.waterAvgArea">
-                            <span ng-bind="a.name"></span>
-                            <span class="bar">
-                                <span class="bar-inline" ng-style='{width: a.percent }'></span>
-                            </span>
-                            <span ng-bind="a.val | number :2"></span>吨
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="block">
-                <div class="chart">
-                    <div class="title">
-                        <span class="icons icon-chart"></span>
-                        本月每日用能
-                    </div>
-                    <div class="echart" id="dailyEnergy"></div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="clearfix"></div>
+            <!-- 安全运行天数 -->
             <div class="leftFoot">
                 <div class="pull-left">
                     <span class="icons icon-safe"></span>
@@ -172,7 +150,9 @@
                 <div class="clearfix"></div>
             </div>
         </div>
+
         <div class="right">
+            <!-- 天气，人流量 -->
             <div class="content-right-weather">
                 <i class="icons weather_icon" ng-title="realtimeWeather.text" ng-class="realtimeWeather.class"></i>
                 <div class="temperature">
@@ -195,8 +175,9 @@
                     月访客：<span ng-bind="data.visitorByMonth"></span>
                 </div>
             </div>
-
             <div class="clearfix"></div>
+
+            <!-- 视频监控 -->
             <div class="block">
                 <div class="chart">
                     <div class="title">
@@ -212,7 +193,81 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+            <div class="clearfix"></div>
 
+            <!-- 设备运行管理 -->
+            <div class="block">
+                <div class="medias">
+                    <div class="title">
+                        <span class="icons icon-warning"></span>
+                        设备运行管理
+                    </div>
+                    <div class="">
+                        <div class="media">
+                            <div class="leftImg"><img src="image/icon-airConditioning.png"></div>
+                            <div class="rightBlock">
+                                <div>
+                                    在线：<span ng-bind="data.airConditioning.online"></span>
+                                </div>
+                                <div>
+                                    关闭：<span ng-bind="data.airConditioning.closed"></span>
+                                </div>
+                                <div>
+                                    故障：<span ng-bind="data.airConditioning.error"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="media">
+                            <div class="leftImg"><img src="image/icon-light.png"></div>
+                            <div class="rightBlock">
+                                <div>
+                                    在线：<span ng-bind="data.light.online"></span>
+                                </div>
+                                <div>
+                                    关闭：<span ng-bind="data.light.closed"></span>
+                                </div>
+                                <div>
+                                    故障：<span ng-bind="data.light.error"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="media">
+                            <div class="leftImg"><img src="image/icon-camera.png"></div>
+                            <div class="rightBlock">
+                                <div>
+                                    在线：<span ng-bind="data.camera.online"></span>
+                                </div>
+                                <div>
+                                    关闭：<span ng-bind="data.camera.closed"></span>
+                                </div>
+                                <div>
+                                    故障：<span ng-bind="data.camera.error"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="media">
+                            <div class="leftImg"><img src="image/icon-elevator.png"></div>
+                            <div class="rightBlock">
+                                <div>
+                                    在线：<span ng-bind="data.elevator.online"></span>
+                                </div>
+                                <div>
+                                    关闭：<span ng-bind="data.elevator.closed"></span>
+                                </div>
+                                <div>
+                                    故障：<span ng-bind="data.elevator.error"></span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
             <div class="clearfix"></div>
 
             <div class="block">
@@ -244,123 +299,59 @@
         </div>
 
         <div class="center">
-            <div class="col-5">
-                <img src="image/map.png" width="100%">
+            <div class="col-12">
+                <span class="point pointMz"></span>
+                <span class="point pointJs"></span>
+                <span class="point pointRt"></span>
+                <span class="point pointBj"></span>
+                <span class="point pointJx"></span>
+                <span class="point pointHy"></span>
+                <a href="http://192.168.151.52:8080/ibs" target="_blank" class="link linkMz">明州大厦</a>
+                <a href="http://192.168.151.11:8080/ibs" target="_blank" class="link linkJs">嘉善电力调度大楼</a>
+                <a href="http://192.168.151.83:8080/ibs" target="_blank" class="link linkRt">融通商务中心</a>
+                <a href="http://192.168.151.191:8080/ibs" target="_blank" class="link linkBj">滨海生产调度大楼</a>
+                <a href="http://192.168.151.163:8080/ibs" target="_blank" class="link linkJx">嘉兴电力公司</a>
+                <a href="http://192.168.151.201:8080/ibs" target="_blank" class="link linkHy">海盐电网调度大楼</a>
+                <img src="image/map.png" width="85%" style="margin-left:8.5%;">
             </div>
-            <div class="col-7">
-                <div class="summary">
-                    <div class="col-12">
-                        <div class="title">
-                            当日总能耗
-                            <div>
-                                <span ng-bind="data.totalEnergyDay | number :0"></span>KG
-                            </div>
-                        </div>
+            <div class="clearfix"></div>
+
+            <div class="block row medias" style="margin-bottom:24px;">
+                <div class="chart">
+                    <div class="title">
+                        <span class="icons icon-chart"></span>
+                        配电房每日负荷（千瓦）
                     </div>
-                    <div class="col-12">
-                        <div class="title">
-                            当月总能耗
-                            <div>
-                                <span ng-bind="data.totalEnergyMonth | number :0"></span>KG
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
+                    <div class="echart" id="chartRealTime2"></div>
                 </div>
+                <div class="clearfix"></div>
             </div>
             <div class="clearfix"></div>
 
             <div class="row medias">
-                <div class="col-12">
-                    <div class="title">
-                        <span class="icons icon-device"></span>
-                        设备运行管理
-                    </div>
-                    <div class="">
-                        <div class="media">
-                            <div class="leftImg"><img src="image/icon-airConditioning.png"></div>
-                            <div class="rightBlock">
-                                <div>
-                                    在线设备：<span ng-bind="data.airConditioning.online"></span>
-                                </div>
-                                <div>
-                                    正常关闭：<span ng-bind="data.airConditioning.closed"></span>
-                                </div>
-                                <div>
-                                    故障：<span ng-bind="data.airConditioning.error"></span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="media">
-                            <div class="leftImg"><img src="image/icon-light.png"></div>
-                            <div class="rightBlock">
-                                <div>
-                                    在线设备：<span ng-bind="data.light.online"></span>
-                                </div>
-                                <div>
-                                    正常关闭：<span ng-bind="data.light.closed"></span>
-                                </div>
-                                <div>
-                                    故障：<span ng-bind="data.light.error"></span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="media">
-                            <div class="leftImg"><img src="image/icon-camera.png"></div>
-                            <div class="rightBlock">
-                                <div>
-                                    在线设备：<span ng-bind="data.camera.online"></span>
-                                </div>
-                                <div>
-                                    正常关闭：<span ng-bind="data.camera.closed"></span>
-                                </div>
-                                <div>
-                                    故障：<span ng-bind="data.camera.error"></span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="media">
-                            <div class="leftImg"><img src="image/icon-elevator.png"></div>
-                            <div class="rightBlock">
-                                <div>
-                                    在线设备：<span ng-bind="data.elevator.online"></span>
-                                </div>
-                                <div>
-                                    正常关闭：<span ng-bind="data.elevator.closed"></span>
-                                </div>
-                                <div>
-                                    故障：<span ng-bind="data.elevator.error"></span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <br />
                 <div class="col-6">
                     <div class="title">
-                        <span class="icons icon-xfsb"></span>
+                        <span class="icons icon-device"></span>
                         消防水箱位/水压
                     </div>
-                    <div class="medias">
+                    <div class="">
+                        <!-- 消防水位 -->
                         <div class="media">
                             <div class="leftImg"><img src="image/icon-sw-m.png"></div>
                             <div class="rightBlock">
                                 <div>
-                                    -高
+                                    消防水位
                                 </div>
                                 <div>
-                                    -中
+                                    1# <span ng-bind="data.fireFighting.n1Level"></span>
                                 </div>
                                 <div>
-                                    -低
+                                    2# <span ng-bind="data.fireFighting.n2Level"></span>
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
+                        <!-- 消防水压 -->
                         <div class="media">
                             <div class="leftImg"><img src="image/icon-sy.png"></div>
                             <div class="rightBlock">
@@ -368,21 +359,25 @@
                                     消防水压
                                 </div>
                                 <div>
-                                    当前水压
+                                    1# <span ng-bind="data.fireFighting.n1Pressure"></span>千帕
                                 </div>
                                 <div>
-                                    1000pa
+                                    2# <span ng-bind="data.fireFighting.n2Pressure"></span>千帕
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
+
                 <div class="col-6">
                     <div class="title">
                         <span class="icons icon-fs"></span>
-                        风机盘管
+                        风冷热泵机组
                     </div>
-                    <div class="medias">
+                    <div class="">
+                        <!-- 风机盘管 -->
                         <div class="media">
                             <div class="leftImg"><img src="image/icon-wind-on.png"></div>
                             <div class="rightBlock">
@@ -390,29 +385,35 @@
                                     风机盘管
                                 </div>
                                 <div>
-                                    运行设备：
+                                    运行：--
                                 </div>
                                 <div>
-                                    12
+                                    停止：--
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
+                        <!-- 风机盘管 -->
                         <div class="media">
-                            <div class="leftImg"><img src="image/icon-wind-off.png"></div>
+                            <div class="leftImg"><img src="image/icon-wind-on.png"></div>
                             <div class="rightBlock">
                                 <div>
-                                    风机盘管
+                                    热泵机组
                                 </div>
                                 <div>
-                                    关闭设备：
+                                    运行：--
                                 </div>
                                 <div>
-                                    0
+                                    停止：--
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                
             </div>
             <div class="clearfix"></div>
 

@@ -48,8 +48,9 @@ span { display: inline; }
 .table th { font-weight: bold; padding: 0; text-align: left; }
 .table td { font-weight: normal; }
 
+.text-center { text-align: center; }
 
-.icons { display: inline-block; width: 25px; height: 25px; background-size:100% 100%;  vertical-align: middle; position: relative; top:-2px; }
+.icons { display: inline-block; width: 25px; height: 25px; background-size:100% 100%;  vertical-align: middle; position: relative; top:-4px; }
 .weather_icon { width: 60px; height: 60px; float: left; }
 
 .icon-elec { background-image: url(../image/icon-elec.png); width: 30px; height: 30px;  }
@@ -66,54 +67,87 @@ span { display: inline; }
 .icon-xfsb { background-image: url(../image/icon-xfsb.png); }
 .icon-fs { background-image: url(../image/icon-fs.png); }
 
+.icon-temp { width: 70px; height: 70px; background-image: url(../image/icon-temp.png); }
+.icon-humidity { width: 70px; height: 70px; background-image: url(../image/icon-humidity.png); }
+.icon-leak { width: 90px; height: 90px; background-image: url(../image/icon-leak.png); }
+
 .bar { width: 100%; height: 12px; display: inline-block; vertical-align: middle; background:rgba(60, 231, 218, 0.1);  }
 .bar-inline { width: 100%; height: 100%; display: block; background:rgba(60, 231, 218, 1);  }
 
 .header { text-align: center; font-size: 150%; height: 11vh; font-weight: bold; }
-.header .left { float:left; background: url(../image/headLeft.png) left no-repeat; background-size:185%; width:30vw; height: 10vh; line-height: 6vh; }
-.header .right { float:right; background: url(../image/headRight.png) right no-repeat; background-size:185%; width:30vw; height: 10vh; line-height: 6vh; font-size: 90%;  }
+.header .left { float:left; background: url(../image/headLeft.png) left no-repeat; background-size:185%; width:27vw; height: 7vh; line-height: 5vh; }
+.header .right { float:right; background: url(../image/headRight.png) right no-repeat; background-size:185%; width:27vw; height: 7vh; line-height: 5vh; font-size: 90%;  }
 .header .center { background: url(../image/headCenter.png) center no-repeat; background-size:33.3333% 100%; font-size: 130%; line-height: 7vh; }
 
 .content { font-size: 100%; }
 .content > div {}
 .content .title { font-weight: bold; }
-.content > .left { float:left; width:30vw; height: 87vh; position: relative; top: -2vh; margin-bottom:-1vh; }
-.content > .right { float:right; width:30vw; height: 87vh; position: relative; top: -2vh; margin-bottom:-1vh; }
-.content > .center { float:left; width:39vw; height: 87vh; display: hidden; }
+.content > .left { float:left; width:27vw; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
+.content > .right { float:right; width:27vw; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
+.content > .center { float:left; width:45.9vw; height: 87vh; display: hidden; }
 
 
-.content > .left .summary { margin-left:10px; margin-bottom:20px;  }
+.content > .left .summary { margin-left:8px; margin-bottom:15px; }
 .content > .left .summary .title { margin-left:10px; font-size: 120%;  }
 .content > .left .summary ul { margin: 10px 10px 0; }
 .content > .left .summary ul li { line-height: 2; }
 
-.content > .left .block, .content > .left .leftFoot { background: rgba(60, 231, 218, 0.1); border: 0.9px solid #fff;
- margin:0 1vw 10px; padding:15px 1vw 5px; }
-.content > .left .block .title {font-size: 110%; font-weight: bold; }
+.content > .left .summary .sp { font-family: "digifacewide"; font-size: 200%; font-weight: normal; }
+
+.content > .left .block, .content > .left .leftFoot { background: rgba(60, 231, 218, 0.1); border: 0.9px solid rgba(255,255,255,.5);
+ margin:0 8px 8px; padding:12px 10px 5px; }
+.content > .left .block .title {font-size: 100%; font-weight: bold; }
 .content > .left .block ul { margin: 15px 0px; padding: 0px; }
 .content > .left .block ul li { list-style: none; line-height: 1.6; }
 .content > .left .block .bar { width: 50%; }
 
-.content > .left .block .echart { height: 210px; }
-.content > .left .leftFoot { margin-top:-10px; border-top:none; }
+.content > .left .block .echart { height: 160px; }
+.content > .left .leftFoot { margin-top:-10px; border-top:none; padding-top:10px; }
+
+.content > .left .tb  { width: 45%; }
+.content > .left .tb .tbinner { font-size: 80%; padding: 12px 10px 0px 30px; }
+.content > .left .tb .col-6 { line-height: 1.75; }
+
+.content > .left .dd p { font-size: 16px; font-weight: normal; margin:5px auto; }
+.content > .left .dd p.st { margin-top: 15px; }
+.content > .left .dd p.big { display: block; font-size: 22px; }
+.content > .left .dd .err { color: red; }
 
 .content > .center .title { font-size: 110%; margin-bottom: 2vh; }
 .content > .center .summary { margin: 6vh 0 2vh 2vw; text-align: left; }
 .content > .center .summary .title div { font-family: "digifacewide"; font-size:240%; font-weight: normal; }
 
+.content > .center .block .echart { height: 140px; }
+
 .content > .center .medias { display: block; }
-.content > .center .medias .title { margin-bottom: 5px; margin-left: 40px; }
+.content > .center .medias .title { margin-bottom: 5px; margin-left: 20px; }
 .content > .center .media { float: left; margin: 1vh 0; }
-.content > .center .col-12 .media { width:50%; }
-.content > .center .col-6 .media { width:100%; }
-.content > .center .media .leftImg { width: 25%; float: left; margin-left:10%; }
+.content > .center .col-12 .media { width:25%; }
+.content > .center .col-6 .media { width:50%; }
+.content > .center .media .leftImg { width: 88px; float: left; margin-left:8px; }
 .content > .center .media .leftImg img { width: 90%; margin-left: 10%; }
-.content > .center .media .rightBlock { width: 60%; margin-left: 5%; float: right; font-size:100%; line-height: 1.8; }
+.content > .center .media .rightBlock { width: 51%; margin-left: 5%; float: right; font-size:16px; line-height: 1.8; }
 .content > .center .pd10 { padding: 0 2.5%; }
 
+.content > .center .point { width: 10px; height: 10px; border-radius: 10px; box-shadow: 1px 1px 8px red; background:red; border:1px solid rgba(255,255,255,0.5); position: absolute; }
+.content > .center .pointMz { margin-top: 210px; margin-left: 305px; }
+.content > .center .pointJs { margin-top: 120px; margin-left: 490px;  }
+.content > .center .pointRt { margin-top: 250px; margin-left: 430px; }
+.content > .center .pointBj { margin-top: 270px; margin-left: 670px; }
+.content > .center .pointJx { margin-top: 165px; margin-left: 375px; width: 15px; height: 15px; }
+.content > .center .pointHy { margin-top: 400px; margin-left: 510px; }
+.content > .center .link { cursor: pointer; text-align: center; line-height: 100px; color: #444; font-size: 12px; position: absolute; 
+    width: 75px; height: 75px; border:1px solid #a;  } 
+.content > .center .linkMz { margin-top: 185px; margin-left: 270px; }
+.content > .center .linkJs { margin-top: 100px; margin-left: 450px; width: 100px;  }
+.content > .center .linkRt { margin-top: 230px; margin-left: 400px; }
+.content > .center .linkBj { margin-top: 250px; margin-left: 630px; width: 100px; }
+.content > .center .linkJx { margin-top: 135px; margin-left: 345px; font-size: 14px; font-weight: bold; line-height: 120px;
+width: 85px; height: 85px; }
+.content > .center .linkHy { margin-top: 380px; margin-left: 480px; }
 
 .content > .right {}
-.content > .right .content-right-weather { width: 50%; float: left; padding-bottom: 15px; margin-right: 40px; margin-bottom: 30px; border-right:0.9px solid rgba(60, 231, 218, 1);  }
+.content > .right .content-right-weather { width: 45%; float: left; padding-bottom: 15px; margin-right: 40px; margin-bottom: 30px; border-right:0.9px solid rgba(60, 231, 218, 1);  }
 .content > .right .content-right-weather .temperature { float: left; margin-left: 30px; }
 .content > .right .content-right-weather .current-temp { font-size: 220%; }
 .content > .right .content-right-weather .current-city { vertical-align: bottom; }
@@ -122,11 +156,17 @@ span { display: inline; }
 
 .content > .right .visitor { padding:10px 100px; line-height: 1.8; }
 
-.content > .right .block { background: rgba(60, 231, 218, 0.1); border: 0.9px solid #fff;
- margin:0 1vw 10px; padding:15px 1vw 5px; }
+.content > .right .block { background: rgba(60, 231, 218, 0.1); border: 0.9px solid rgba(255,255,255,.5);
+ margin:0 8px 8px; padding:12px 10px 5px; }
  .content > .right .block .chart { margin-bottom: 6.6667px; }
-.content > .right .block .iframe { width: 245px; height: 184px; margin:10px 0 0px 3px; border:none; float: left; overflow: hidden; }
-.content > .right .block .iframe iframe { width: 800px; height: 600px; margin-left: -268px; margin-top:-200px; overflow: hidden; transform: scale(0.333); }
+.content > .right .block .iframe { width: 215px; height: 140px; margin:10px 5px 0px 5px; border:none; float: left; overflow: hidden; }
+.content > .right .block .iframe iframe { width: 800px; height: 600px; margin-left: -270px; margin-top:-225px; overflow: hidden; transform: scale(0.24); }
 
-.content > .right .block .table { margin: 20px 0; }
+.content > .right .block .table { margin: 10px 0; line-height: 1.6; font-size: 16px; }
+.content > .right .block .table th { padding-bottom: 5px; }
 
+.content > .right .medias .title { margin-bottom: 10px; }
+.content > .right .media { float: left; margin: 1vh 2.5%; width: 45%; }
+.content > .right .media .leftImg { width: 88px; float: left; margin-right: 10px; }
+.content > .right .media .leftImg img { width: 90%; }
+.content > .right .media .rightBlock { font-size: 16px; line-height: 1.8; }

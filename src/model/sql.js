@@ -11,7 +11,7 @@ exports.sql = {
 			where substring_index(item_name, '_', -1) = ?
 				and DATE(date_time) >= ?
 				and DATE(date_time) <= ?
-			group by DATE(date_time)
+			-- group by DATE(date_time)
 			`,
 		"getEnergyTotalByHour": `
 			select ifnull(sum(value),0) as tt
@@ -60,5 +60,9 @@ exports.sql = {
 				and DATE(date_time) <= ?
 			group by DATE_FORMAT(date_time,'%Y-%m-%d %H')
 			`,
+	},
+
+	"ms": {
+		"getDevice": "select * from ibs_item_parameter;",
 	}
 }

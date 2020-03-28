@@ -121,23 +121,6 @@ var _getBuildDatasJx = async function (dn, conf, pars) {
     }
 }
 
-var _getDevices = async function (conf) {
-    try {
-        return await new Promise((resolve, reject) => {
-            request('http://localhost:8080/querylist', function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    resolve(JSON.parse(body));
-                } else {
-                    reject(body);
-                }
-            });
-        });
-    } catch(e) {
-        console.log(e.message, dn);
-        return []
-    }
-}
-
 var _getBuildDatas = async function (dn, conf, pars) {
     try {
         var conn = await db.getConn(conf, dn);
@@ -246,6 +229,22 @@ exports.ajaxGetBuildings = async function(conf, params) {
     return res;
 }
 
+var _getDevices = async function (conf) {
+    try {
+        return await new Promise((resolve, reject) => {
+            request('http://localhost:8080/querylist', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    resolve(JSON.parse(body));
+                } else {
+                    reject(body);
+                }
+            });
+        });
+    } catch(e) {
+        console.log(e.message, dn);
+        return []
+    }
+}
 exports.ajaxDevices = async function(conf, params) {
     let res = JSON.parse(JSON.stringify(_success));
     try {
@@ -360,6 +359,35 @@ exports.ajaxEnergyData = async function(conf, params) {
         res.result = await _getDatas(dn, conf, pars);
     } catch(e) {
         let res = JSON.parse(JSON.stringify(_failed));
+        res.msg = e.message;
+    }
+    return res;
+}
+
+// 电梯等其他设备，sqlserv 中
+var _getOtherDevices = async function (conf) {
+    try {
+        return await new Promise((resolve, reject) => {
+            request('http://localhost:8081/querylist', function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    resolve(JSON.parse(body));
+                } else {
+                    reject(body);
+                }
+            });
+        });
+    } catch(e) {
+        console.log(e.message, dn);
+        return []
+    }
+}
+exports.ajaxOtherDevices = async function(conf, params) {
+    let res = JSON.parse(JSON.stringify(_success));
+    try {
+        res.result = await _getOtherDevices();
+    } catch(e) {
+        let res = JSON.parse(JSON.stringify(_failed));
+        res.code = e.code;
         res.msg = e.message;
     }
     return res;

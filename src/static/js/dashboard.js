@@ -47,6 +47,8 @@ app.config(function($interpolateProvider) {
     refreshInterval = 5*60*1000; // N 分钟刷新所有电站数据
     var mapId = "map";
 
+    var startDay = "2020-03-24";
+
     var videos = [
         "http://192.168.151.163:9435/FmVideo.html?channel=4&ip=192.168.1.28",
         "http://192.168.151.163:9435/FmVideo.html?channel=5&ip=192.168.1.29",
@@ -71,7 +73,7 @@ app.config(function($interpolateProvider) {
         headLeft: "安全·舒适·节能",
         headRight: moment().format("YYYY-MM-DD dddd"),
 
-        safeDays: 123, // 安全运行天数
+        safeDays: moment().diff(moment(startDay), "days"), // 安全运行天数
 
         buildingSortName: ["海盐", "融通", "明州", "嘉善", "滨海", "嘉兴"],
 
@@ -258,12 +260,6 @@ app.config(function($interpolateProvider) {
                 name: "YG-001",
                 time: "2020-01-01 12:12:12",
                 warning: "设备掉线"
-            },
-            {
-                type: "烟感探头",
-                name: "YG-001",
-                time: "2020-01-01 12:12:12",
-                warning: "设备掉线"
             }
         ],
     };
@@ -302,6 +298,9 @@ app.config(function($interpolateProvider) {
                     color: "rgba(60, 231, 218, 0.85)"
                 }
             },
+        },
+        tooltip: {
+            trigger: 'axis',
         },
         series: [
             {
@@ -417,9 +416,12 @@ app.config(function($interpolateProvider) {
     };
     var PieOption = {
         color: settings.maintanceColors,
+        tooltip: {
+            trigger: 'item',
+        },
         series: [{
             type: 'pie',
-            radius: '85%',
+            radius: '75%',
             data: [],
             label:{ //饼图图形上的文本标签
                 normal:{
@@ -529,11 +531,20 @@ app.config(function($interpolateProvider) {
         $scope.getLocalWeather();
         $scope.getLocalAirPm();
 
-        // 嘉兴设备相关
+        // 嘉兴照明，空调等
         $scope.getDevices()
             .then(function(data) {
                 console.log(data);
                 $scope.fmtDevice(data);
+            }).catch(function(data){
+                // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
+                alert("暂无数据，调试中...");
+            });
+        // 电梯等
+        $scope.getOtherDevices()
+            .then(function(data) {
+                console.log(data);
+                $scope.fmtOtherDevice(data);
             }).catch(function(data){
                 // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
                 alert("暂无数据，调试中...");
@@ -558,7 +569,7 @@ app.config(function($interpolateProvider) {
         //         alert("暂无数据，调试中...");
         //     });
     }
-    // 嘉兴设备数据
+    // 嘉兴照明，空调
     $scope.getDevices = function() {
         var param = {
             _method: 'get',
@@ -581,12 +592,6 @@ app.config(function($interpolateProvider) {
         };
         // 空调
         $scope.data.airConditioning= {
-            online: 0,
-            closed: 0,
-            error: 0,
-        };
-        // 电梯
-        $scope.data.elevator = {
             online: 0,
             closed: 0,
             error: 0,
@@ -614,6 +619,55 @@ app.config(function($interpolateProvider) {
                         }
                     } else {
                         $scope.data.airConditioning.error += 1;
+                    }
+                }
+            });
+        }
+        $scope.$apply(function(){
+            $scope.data = $scope.data;
+        });
+    }
+
+    // 嘉兴电梯等
+    // {"code":0,"msg":"","result":[{"parameterType":"LCXX","code":"1#电梯楼层","infoType":"AI","valueType":"int","name":"楼层信息","id":1,"dataUpdateTime":"2020-03-27T18:22:39.000+0000","value":"14"},{"parameterType":"SXHZT","code":"1#电梯上下行","infoType":"DI","valueType":"bool","name":"上下行状态","id":2,"dataUpdateTime":"2020-03-27T18:22:43.000+0000","value":"0"},{"parameterType":"YXZT","code":"1#电梯故障","infoType":"DI","valueType":"bool","name":"运行状态","id":3,"dataUpdateTime":"2020-03-27T16:24:45.000+0000","value":"0"},{"parameterType":"LCXX","code":"2#电梯楼层","infoType":"AI","valueType":"int","name":"楼层信息","id":4,"dataUpdateTime":"2020-03-27T18:22:01.000+0000","value":"1"},{"parameterType":"YXZT","code":"2#电梯故障","infoType":"DI","valueType":"bool","name":"运行状态","id":5,"dataUpdateTime":"2020-03-27T16:24:45.000+0000","value":"0"},{"parameterType":"SXHZT","code":"2#电梯上下行","infoType":"DI","valueType":"bool","name":"上下行状态","id":6,"dataUpdateTime":"2020-03-27T18:22:16.000+0000","value":"0"},{"parameterType":"LCXX","code":"3#电梯楼层","infoType":"AI","valueType":"int","name":"楼层信息","id":7,"dataUpdateTime":"2020-03-27T18:08:31.000+0000","value":"1"},{"parameterType":"YXZT","code":"3#电梯故障","infoType":"DI","valueType":"bool","name":"运行状态","id":8,"dataUpdateTime":"2020-03-27T16:24:45.000+0000","value":"0"},{"parameterType":"SXHZT","code":"3#电梯上下行","infoType":"DI","valueType":"bool","name":"上下行状态","id":9,"dataUpdateTime":"2020-03-27T18:08:47.000+0000","value":"0"}]}
+    $scope.getOtherDevices = function() {
+        var param = {
+            _method: 'get',
+            _url: settings.ajax_func.ajaxOtherDevices,
+        };
+        return global.return_promise($scope, param);
+    };
+    $scope.fmtOtherDevice = function(data) {
+        // 左侧设备间
+        $scope.data.temp = 22;
+        $scope.data.humidity = 22;
+        $scope.data.leak = 0;
+        $scope.data.leakClass = $scope.data.leak == 0 ? "" : "err";;
+        $scope.data.leakStr = $scope.data.leak == 0 ? "正常--无渗水" : "异常--有渗水";
+        
+        // 中间消防
+        $scope.data.fireFighting = {
+            "n1Level": "高",
+            "n2Level": "高",
+            "n1Pressure": 1234,
+            "n2Pressure": 1234,
+        };
+
+        // 电梯
+        $scope.data.elevator= {
+            online: 0,
+            closed: 0,
+            error: 0,
+        };
+        if(data.result.length > 0) {
+            data.result.map(function(d){
+                if(d.code.indexOf("电梯故障") >= 0) {
+                    // 2小时没更新，算离线
+                    if(d.value == "0" 
+                        && moment().diff(moment(d.dataUpdateTime), "hours") < 24) {
+                        $scope.data.elevator.online += 1;
+                    } else {
+                        $scope.data.elevator.error += 1;
                     }
                 }
             });
@@ -670,7 +724,7 @@ app.config(function($interpolateProvider) {
             opt.xAxis.type = "category";
             opt.xAxis.data = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
                                 "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
-                                "20", "21", "22", "23"];
+                                "20", "21", "22", "23", "24"];
             opt.xAxis.axisLabel = {
                 interval: 1
             };
@@ -679,6 +733,9 @@ app.config(function($interpolateProvider) {
                 });
             console.log(JSON.stringify(opt));
             drawEChart($scope.chartRealTime, opt);
+            var opt = copy(opt);
+            opt.series[0].name = "千瓦";
+            drawEChart($scope.chartRealTime2, opt);
 
             // 折线图 -- 日曲线
             // 先准备基础数据
@@ -722,12 +779,10 @@ app.config(function($interpolateProvider) {
     // 原5个大楼的数据解析
     $scope.fmtData = function(data) {
         if(data.result.length > 0) {
-
             var cacheData = global.getLocalObject("cacheData");
             if(!cacheData) {
                 cacheData = data;
             }
-
             $scope.$apply(function(){
                 // 汇总数据
                 $scope.data.totalArea= 0;   // 
@@ -906,7 +961,7 @@ app.config(function($interpolateProvider) {
                     unit: "吨",
                     val: "daily_energy",
                 });
-                drawEChart($scope.dailyEnergy, opt);
+                //drawEChart($scope.dailyEnergy, opt);
 
                 // 缓存数据
                 global.setLocalObject("cacheData", cacheData, 30*60*1000);
@@ -957,7 +1012,7 @@ app.config(function($interpolateProvider) {
     function resetIntervalTime() {
         clearInterval($scope.timeInterval);
         $scope.timeInterval = setInterval(function () {
-            let n = moment($scope.now).add(1, "second");
+            let n = moment();
             $scope.$apply(function(){
                 $scope.now = n.format("YYYY-MM-DD HH:mm:ss");
                 $scope.weekDay = n.format('dddd');
@@ -987,13 +1042,16 @@ app.config(function($interpolateProvider) {
     function isValidDate(date) {
         return date instanceof Date && !isNaN(date.getTime())
     }
+    function isDateFmt(str) {
+        return str.length > 4;
+    }
 
     // 格式化成图表需要的数据
     function fmtEChartData(data){
         var tmpSeriesData = [];
         data.datas.map(function (p) {
             tmpSeriesData.push([
-                isValidDate(new Date(p.key)) ? new Date(p.key) : p.key,
+                isDateFmt(p.key) && isValidDate(new Date(p.key)) ? new Date(p.key) : p.key,
                 (p.val == "" ? 0 : parseFloat(p.val).toFixed(2))
             ])
         });
@@ -1086,6 +1144,12 @@ app.config(function($interpolateProvider) {
     // 初始化函数执行
     (function init_data() {
 
+        //$scope.dailyEnergy = echarts.init(document.getElementById("dailyEnergy"));
+        $scope.chartMonthBySubentry = echarts.init(document.getElementById("chartMonthBySubentry"));
+        $scope.chartRealTime = echarts.init(document.getElementById("chartRealTime"));
+        $scope.chartRealTime2 = echarts.init(document.getElementById("chartRealTime2"));
+        $scope.chartMonthData = echarts.init(document.getElementById("chartMonthData"));
+
         // 设置全局提供map调用
         window.refreshDatas = refreshDatas;
         setTimeout(function(){
@@ -1093,11 +1157,6 @@ app.config(function($interpolateProvider) {
         }, 0);
 
         //resize();
-
-        $scope.dailyEnergy = echarts.init(document.getElementById("dailyEnergy"));
-        $scope.chartMonthBySubentry = echarts.init(document.getElementById("chartMonthBySubentry"));
-        $scope.chartRealTime = echarts.init(document.getElementById("chartRealTime"));
-        $scope.chartMonthData = echarts.init(document.getElementById("chartMonthData"));
 
         // 初始化地图
         //initMap();

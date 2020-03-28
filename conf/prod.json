@@ -48,9 +48,18 @@
     },
 
     "mssql": {
-        "host": "rm-uf67xbt5r3r17jddto.mysql.rds.aliyuncs.com",
-        "database": "tmp_test",
-        "username": "llproj",
-        "password": "asjfy3j7Y@62o@hksowi"
+        "user": "sa",
+        "password": "thtf1234567[]",
+        "server": "192.168.151.163",
+        "database": "ibs",
+        "port": 1433,
+        "options": {
+            "encrypt": true
+        },
+        "pool": {
+            "min": 0,
+            "max": 10,
+            "idleTimeoutMillis": 3000
+        }
     }
 }
