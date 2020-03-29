@@ -50,7 +50,7 @@ span { display: inline; }
 
 .text-center { text-align: center; }
 
-.icons { display: inline-block; width: 25px; height: 25px; background-size:100% 100%;  vertical-align: middle; position: relative; top:-4px; }
+.icons { display: inline-block; width: 22px; height: 22px; background-size:100% 100%;  vertical-align: middle; position: relative; top:-2px; }
 .weather_icon { width: 60px; height: 60px; float: left; }
 
 .icon-elec { background-image: url(../image/icon-elec.png); width: 30px; height: 30px;  }
@@ -66,10 +66,16 @@ span { display: inline; }
 .icon-device { background-image: url(../image/icon-device.png); }
 .icon-xfsb { background-image: url(../image/icon-xfsb.png); }
 .icon-fs { background-image: url(../image/icon-fs.png); }
+.icon-pie { background-image: url(../image/icon-pie.png); }
+.icon-building { background-image: url(../image/icon-building.png); }
+.icon-deviceRoom { background-image: url(../image/icon-deviceRoom.png); }
 
 .icon-temp { width: 70px; height: 70px; background-image: url(../image/icon-temp.png); }
 .icon-humidity { width: 70px; height: 70px; background-image: url(../image/icon-humidity.png); }
 .icon-leak { width: 90px; height: 90px; background-image: url(../image/icon-leak.png); }
+
+.leftFoot li { padding-left: 0px; }
+.dot { list-style:inside circle; }
 
 .bar { width: 100%; height: 12px; display: inline-block; vertical-align: middle; background:rgba(60, 231, 218, 0.1);  }
 .bar-inline { width: 100%; height: 100%; display: block; background:rgba(60, 231, 218, 1);  }
@@ -110,7 +116,7 @@ span { display: inline; }
 
 .content > .left .dd p { font-size: 16px; font-weight: normal; margin:5px auto; }
 .content > .left .dd p.st { margin-top: 15px; }
-.content > .left .dd p.big { display: block; font-size: 22px; }
+.content > .left .dd p.big { display: block; font-size: 20px; }
 .content > .left .dd .err { color: red; }
 
 .content > .center .title { font-size: 110%; margin-bottom: 2vh; }
@@ -129,12 +135,12 @@ span { display: inline; }
 .content > .center .media .rightBlock { width: 51%; margin-left: 5%; float: right; font-size:16px; line-height: 1.8; }
 .content > .center .pd10 { padding: 0 2.5%; }
 
-.content > .center .point { width: 10px; height: 10px; border-radius: 10px; box-shadow: 1px 1px 8px red; background:red; border:1px solid rgba(255,255,255,0.5); position: absolute; }
+.content > .center .point { width: 8px; height: 8px; border-radius: 20px; box-shadow: 1px 1px 10px red; background:red; border:2px solid rgba(255,255,255,0.5); position: absolute; }
 .content > .center .pointMz { margin-top: 210px; margin-left: 305px; }
 .content > .center .pointJs { margin-top: 120px; margin-left: 490px;  }
 .content > .center .pointRt { margin-top: 250px; margin-left: 430px; }
 .content > .center .pointBj { margin-top: 270px; margin-left: 670px; }
-.content > .center .pointJx { margin-top: 165px; margin-left: 375px; width: 15px; height: 15px; }
+.content > .center .pointJx { margin-top: 165px; margin-left: 375px; width: 18px; height: 18px; }
 .content > .center .pointHy { margin-top: 400px; margin-left: 510px; }
 .content > .center .link { cursor: pointer; text-align: center; line-height: 100px; color: #444; font-size: 12px; position: absolute; 
     width: 75px; height: 75px; border:1px solid #a;  } 
@@ -142,7 +148,7 @@ span { display: inline; }
 .content > .center .linkJs { margin-top: 100px; margin-left: 450px; width: 100px;  }
 .content > .center .linkRt { margin-top: 230px; margin-left: 400px; }
 .content > .center .linkBj { margin-top: 250px; margin-left: 630px; width: 100px; }
-.content > .center .linkJx { margin-top: 135px; margin-left: 345px; font-size: 14px; font-weight: bold; line-height: 120px;
+.content > .center .linkJx { margin-top: 140px; margin-left: 345px; font-size: 14px; font-weight: bold; line-height: 120px;
 width: 85px; height: 85px; }
 .content > .center .linkHy { margin-top: 380px; margin-left: 480px; }
 
