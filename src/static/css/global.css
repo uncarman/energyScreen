@@ -88,10 +88,11 @@ span { display: inline; }
 .content { font-size: 100%; }
 .content > div {}
 .content .title { font-weight: bold; }
-.content > .left { float:left; width:27vw; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
-.content > .right { float:right; width:27vw; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
-.content > .center { float:left; width:45.9vw; height: 87vh; display: hidden; }
+.content > .left { float:left; width:518px; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
+.content > .right { float:right; width:581px; height: 87vh; position: relative; top: -48px; margin-bottom:-1vh; }
+.content > .center { float:left; width:865px; height: 87vh; display: hidden; }
 
+.content > .center .center-title { position:absolute; top:85px; left:45%; }
 
 .content > .left .summary { margin-left:8px; margin-bottom:15px; }
 .content > .left .summary .title { margin-left:10px; font-size: 120%;  }
@@ -132,15 +133,15 @@ span { display: inline; }
 .content > .center .col-6 .media { width:50%; }
 .content > .center .media .leftImg { width: 88px; float: left; margin-left:8px; }
 .content > .center .media .leftImg img { width: 90%; margin-left: 10%; }
-.content > .center .media .rightBlock { width: 51%; margin-left: 5%; float: right; font-size:16px; line-height: 1.8; }
+.content > .center .media .rightBlock { width: 50%; margin-left: 5%; float: right; font-size:16px; line-height: 1.8; }
 .content > .center .pd10 { padding: 0 2.5%; }
 
-.content > .center .point { width: 8px; height: 8px; border-radius: 20px; box-shadow: 1px 1px 10px red; background:red; border:2px solid rgba(255,255,255,0.5); position: absolute; }
+.content > .center .point { width: 8px; height: 8px; border-radius: 20px; box-shadow: 1px 1px 6px red; background:red; border:2px solid rgba(255,255,255,0.5); position: absolute; }
 .content > .center .pointMz { margin-top: 210px; margin-left: 305px; }
 .content > .center .pointJs { margin-top: 120px; margin-left: 490px;  }
 .content > .center .pointRt { margin-top: 250px; margin-left: 430px; }
 .content > .center .pointBj { margin-top: 270px; margin-left: 670px; }
-.content > .center .pointJx { margin-top: 165px; margin-left: 375px; width: 18px; height: 18px; }
+.content > .center .pointJx { margin-top: 165px; margin-left: 375px; width: 18px; height: 18px; -webkit-animation: animat 1s; -webkit-animation-iteration-count: infinite; -webkit-animation-direction: alternate; }
 .content > .center .pointHy { margin-top: 400px; margin-left: 510px; }
 .content > .center .link { cursor: pointer; text-align: center; line-height: 100px; color: #444; font-size: 12px; position: absolute; 
     width: 75px; height: 75px; border:1px solid #a;  } 
@@ -148,9 +149,21 @@ span { display: inline; }
 .content > .center .linkJs { margin-top: 100px; margin-left: 450px; width: 100px;  }
 .content > .center .linkRt { margin-top: 230px; margin-left: 400px; }
 .content > .center .linkBj { margin-top: 250px; margin-left: 630px; width: 100px; }
-.content > .center .linkJx { margin-top: 140px; margin-left: 345px; font-size: 14px; font-weight: bold; line-height: 120px;
+.content > .center .linkJx { margin-top: 145px; margin-left: 345px; font-size: 14px; font-weight: bold; line-height: 120px;
 width: 85px; height: 85px; }
 .content > .center .linkHy { margin-top: 380px; margin-left: 480px; }
+
+@keyframes animat
+{
+    from {box-shadow: 0px 0px 5px red;}
+    to {box-shadow: 0px 0px 30px red;}
+}
+@-webkit-keyframes animat
+{
+    from {box-shadow: 0px 0px 5px red;}
+    to {box-shadow: 0px 0px 30px red;}
+}
+
 
 .content > .right {}
 .content > .right .content-right-weather { width: 45%; float: left; padding-bottom: 15px; margin-right: 40px; margin-bottom: 30px; border-right:0.9px solid rgba(60, 231, 218, 1);  }

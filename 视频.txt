@@ -12,9 +12,10 @@
 地下出口:http://192.168.151.163:9435/FmVideo.html?channel=11&ip=192.168.1.18
 
 
-196.168.127.20
+192.168.127.20
 用户名:vqor4s
 密码:vqor314400
 表:m_build
 面板:m_controller
 某一路设备:m_dvice
+

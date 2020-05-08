@@ -76,3 +76,17 @@ npm run prod
     |-- README.md
 
 
+
+###页面和通讯服务端数据传输格式
+a)发送查询命令：SELECT|参数编码1|参数编码2|…|END
+        服务器返回json数据格式。
+b)发送配置命令：CONFIG|参数编码|值|END
+        服务器返回json数据格式。
+c)发送刷新模式缓存命令：REFRESH|MODULE|END
+d)发送控制与反馈值比对命令：
+COMPARE|区域id|设备名称|反馈参数编码|控制参数编码|控制参数编码值|比对时间间隔（分）|END
+
+返回json数据格式
+
+"SELECT|Bacnet.2F.L-201A_40001.PresentValue|END"
+{\"command\":\"SELECT\",\"dataList\":[{\"command\":\"HANDLE\",\"dateTime\":\"2020-04-27 14:55:33\",\"serverCode\":\"86081272\",\"state\":\"Good\",\"sysCode\":\"light\",\"tagCode\":\"Bacnet.2F.L-201A_40001.PresentValue\",\"tagNumber\":\"86248912\",\"value\":\"0\",\"valueType\":\"Boolean\"}]}

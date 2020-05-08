@@ -274,22 +274,22 @@
                         <span class="icons icon-warning"></span>
                         报警信息
                     </div>
-                    <div class="">
+                    <marquee width="100%" height="185" scrollamount="2" direction="up">
                         <table class="table">
                             <tr>
-                                <th>设备类型</th>
-                                <th>设备名称</th>
-                                <th>故障时间</th>
-                                <th>故障信息</th>
+                                <th>火警等级</th>
+                                <th>点位描述</th>
+                                <th>上报时间</th>
+                                <th>防火分区</th>
                             </tr>
                             <tr ng-repeat="a in data.warnings">
-                                <td ng-bind="a.type"></td>
-                                <td ng-bind="a.name"></td>
-                                <td ng-bind="a.time"></td>
-                                <td ng-bind="a.warning"></td>
+                                <td ng-bind="a.level"></td>
+                                <td ng-bind="a.pointDesc"></td>
+                                <td ng-bind="a.firstTime"></td>
+                                <td ng-bind="a.zone"></td>
                             </tr>
                         </table>
-                    </div>
+                    </marquee>
                     <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
@@ -297,6 +297,7 @@
         </div>
 
         <div class="center">
+            <div class="center-title">国网嘉兴综合能源公司</div>
             <div class="col-12">
                 <span class="point pointMz"></span>
                 <span class="point pointJs"></span>
@@ -305,8 +306,8 @@
                 <span class="point pointJx"></span>
                 <span class="point pointHy"></span>
                 <a href="http://192.168.151.52:8080/ibs" target="_blank" class="link linkMz">明州大厦</a>
-                <a href="http://192.168.151.11:8080/ibs" target="_blank" class="link linkJs">嘉善电力调度大楼</a>
-                <a href="http://192.168.151.83:8080/ibs" target="_blank" class="link linkRt">融通商务中心</a>
+                <a href="http://192.168.151.83:8080/ibs" target="_blank" class="link linkJs">嘉善电力调度大楼</a>
+                <a href="http://192.168.151.11:8080/ibs" target="_blank" class="link linkRt">融通商务中心</a>
                 <a href="http://192.168.151.191:8080/ibs" target="_blank" class="link linkBj">滨海生产调度大楼</a>
                 <a href="http://192.168.151.163:8080/ibs" target="_blank" class="link linkJx">嘉兴电力公司</a>
                 <a href="http://192.168.151.201:8080/ibs" target="_blank" class="link linkHy">海盐电网调度大楼</a>
@@ -343,9 +344,6 @@
                                 <div>
                                     1# <span ng-bind="data.fireFighting.n1Level"></span>
                                 </div>
-                                <div>
-                                    2# <span ng-bind="data.fireFighting.n2Level"></span>
-                                </div>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -357,10 +355,7 @@
                                     消防水压
                                 </div>
                                 <div>
-                                    1# <span ng-bind="data.fireFighting.n1Pressure"></span>千帕
-                                </div>
-                                <div>
-                                    2# <span ng-bind="data.fireFighting.n2Pressure"></span>千帕
+                                    1# <span ng-bind="data.fireFighting.n1Pressure"></span>
                                 </div>
                             </div>
                             <div class="clearfix"></div>

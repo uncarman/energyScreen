@@ -64,6 +64,11 @@ app.config(function($interpolateProvider) {
         "http://192.168.151.163:9435/FmVideo.html?channel=11&ip=192.168.1.18",
     ];
 
+    // 7天内报警数据
+    var _warningUrl = "http://192.168.18.227/open/platform/tpos/building/fire/list?bid=2&limit=100&secret=70149deb4c100ecd319b4af71b66eb39&appkey=iicp";
+    _warningUrl += "&startTime="+ moment().add(-7, 'day').format("YYYY-MM-DD")
+
+
     $scope.data = {
         // 空气质量
         "cityId": "1233",  // 嘉兴市
@@ -558,6 +563,15 @@ app.config(function($interpolateProvider) {
                 // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
                 alert("暂无数据，调试中...");
             });
+        // 火警列表数据
+        $scope.getWarningData()
+            .then(function(data) {
+                console.log(data);
+                $scope.fmtWarningData(data);
+            }).catch(function(data){
+                // alert("电站暂无数据 refreshDatas:"+data.sub_msg);
+                alert("暂无数据，调试中...");
+            });
 
         // 获取所有数据
         // $scope.getDatas()
@@ -580,7 +594,7 @@ app.config(function($interpolateProvider) {
     $scope.fmtDevice = function(data) {
         // 摄像头
         $scope.data.camera= {
-            online: videos.length,
+            online: 25,
             closed: 0,
             error: 0,
         };
@@ -647,31 +661,29 @@ app.config(function($interpolateProvider) {
         
         // 中间消防
         $scope.data.fireFighting = {
-            "n1Level": "高",
-            "n2Level": "高",
-            "n1Pressure": 1234,
-            "n2Pressure": 1234,
+            "n1Level": "正常",
+            "n1Pressure": "0.513Mpa",
         };
 
         // 电梯
         $scope.data.elevator= {
-            online: 0,
+            online: 3,
             closed: 0,
             error: 0,
         };
-        if(data.result.length > 0) {
-            data.result.map(function(d){
-                if(d.code.indexOf("电梯故障") >= 0) {
-                    // 2小时没更新，算离线
-                    if(d.value == "0" 
-                        && moment().diff(moment(d.dataUpdateTime), "hours") < 24) {
-                        $scope.data.elevator.online += 1;
-                    } else {
-                        $scope.data.elevator.error += 1;
-                    }
-                }
-            });
-        }
+        // if(data.result.length > 0) {
+        //     data.result.map(function(d){
+        //         if(d.code.indexOf("电梯故障") >= 0) {
+        //             // 24小时没更新，算故障
+        //             if(d.value == "0" 
+        //                 && moment().diff(moment(d.dataUpdateTime), "hours") < 24) {
+        //                 $scope.data.elevator.online += 1;
+        //             } else {
+        //                 $scope.data.elevator.error += 1;
+        //             }
+        //         }
+        //     });
+        // }
         $scope.$apply(function(){
             $scope.data = $scope.data;
         });
@@ -764,6 +776,54 @@ app.config(function($interpolateProvider) {
             drawEChart($scope.chartMonthData, opt);
         });
     }
+
+    // 火警列表数据
+    $scope.getWarningData = function() {
+        var param = {
+            _method: 'get',
+            _url: _warningUrl,
+        };
+        return global.return_promise($scope, param);
+    };
+    $scope.fmtWarningData = function(data) {
+        // console.log(data);
+        // 火警数据
+        // fireId  int 火警 id
+        // bid Int 建筑物 id
+        // devNum  string  传感器设备号(用于显示)
+        // pointDesc   string  点位描述
+        // tag int 0 火警中 1 已解除
+        // flowStatus  int 0 未 确认  3 被 确认  4 忽 略
+        // firstTime   String  第一次上报时间(时间戳)
+        // lastTime    String  最后一次上报时间(时间戳)
+        // confirmTime String  火警确认时间(时间戳)
+        // comment string  描述
+        // zone    string  防火分区
+        // level   int 火警级别(1：一级火警,2：二级火警,3：三级火警)
+        // levelTime   String  火警升级时间(时间戳)
+        // createTime  String  创建时间(时间戳)
+        // modifyTime  String  修改时间(时间戳)
+        // fireTag int 火警类型(0 正常上传 1 维保状态下上报)
+        // assigner    string  操作人
+        // userType    int 操作类型(0 平台 1 运维 2 客服 3  第三方)
+        var list = [];
+        if(data.data.length > 0) {
+            data.data.map(function(w){
+                if(w.tag == "0") {  // 已处理
+                    list.push({
+                        level: {"1":"一级火警", "2": "二级火警", "3": "三级火警"}[w.level],
+                        pointDesc: w.pointDesc,
+                        firstTime: moment(w.firstTime).format('MM-DD hh:mm'),
+                        zone: w.zone
+                    });
+                }
+            });
+        }
+        $scope.$apply(function(){
+            data.warnings = list;
+        });
+    }
+
 
     // 原获取5个大楼的数据接口
     $scope.getDatas = function () {

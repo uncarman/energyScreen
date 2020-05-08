@@ -38,6 +38,10 @@ var settings = {
         "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
 }
 
+function MyAlert(msg, type) {
+    alert(msg);
+}
+
 var global = {
     //读取共享存储区域的session字段
     read_storage: function(field){
@@ -220,7 +224,7 @@ var global = {
                     } else {
                         reject(data);
                     }
-                });
+                }, [200]);
         });
     },
 
@@ -363,20 +367,28 @@ var global = {
                             msg = "错误编号：" + data.code + " ，请重试或联系客服。";
                         }
                     }
+                    MyAlert(msg, 'warning');
+                    /*
                     new MyMsg({
                         str: msg,
-                        classtype: "warning",
+                        classtype: 'warning',
                         time: settings.msg_duration
                     });
+                    */
+                    return msg;
                 }
             }
             catch(e)
             {
+                MyAlert("系统错误："+e.message, 'warning');
+                /*
                 new MyMsg({
-                    str: "系统错误："+e.message,
-                    classtype: "warning",
+                    str: msg,
+                    classtype: 'warning',
                     time: settings.msg_duration
                 });
+                */
+                return "系统错误："+e.message;
             }
         }, error_func);
     },
@@ -558,3 +570,4 @@ var global = {
         }
     }
 }
+
